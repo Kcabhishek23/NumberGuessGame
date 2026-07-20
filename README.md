@@ -1,59 +1,13 @@
 # 🎯 Number Guess Game
 
-<!--
-# creates a large heading.
-One # is the biggest heading in Markdown.
--->
-
 A simple and interactive number guessing game built with HTML, CSS, and JavaScript.
-
-<!--
-Normal text can be written directly.
-You do not need to use <p> tags like HTML.
--->
-
----
+The goal of the game is simple: choose a difficulty level, guess the secret number, and try to find the correct number within the available attempts.
 
 ## 🎮 Live Demo
 
-<!--
-## creates a second-level heading.
--->
-
 You can play the game here:
 
-👉 [Play Number Guess Game](https://kcabhishek23.github.io/NumberGuessGame/)
-
-<!--
-[Text](URL) creates a clickable link.
-
-Example:
-[Google](https://www.google.com)
--->
-
----
-
-## 📸 UI Design
-
-![Number Guess Game UI](images/game-ui.png)
-
-<!--
-![Alt Text](Image Path)
-is used to display an image.
-
-Your project should look like this:
-
-NumberGuessGame/
-│
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-└── images/
-    └── game-ui.png
-
-If your image has a different name, change the path.
--->
+[Play Game](https://kcabhishek23.github.io/NumberGuessGame/)
 
 ---
 
@@ -76,13 +30,6 @@ The game has three different difficulty levels:
 - Number range: **1 to 100**
 - Attempts: **10**
 
-<!--
-### creates a smaller heading.
-
-- creates a bullet point.
-
-**text** makes text bold.
--->
 
 The game gives feedback after every guess:
 
@@ -149,17 +96,3 @@ While building this project, I learned how to:
 - Add interactions to buttons.
 - Use Git and GitHub to manage a project.
 - Deploy a website using GitHub Pages.
-
----
-
-## 📁 Project Structure
-
-```text
-NumberGuessGame/
-│
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-└── images/
-    └── game-ui.png
