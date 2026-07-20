@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Number Guess Game</title>
+
+
+    <!-- Google Font: Inter -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- CSS File -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+
+        <!-- Logo and Game Name -->
+
+        <div class="logo-section">
+
+
+            <div class="logo">
+                ?
+            </div>
+
+
+            <h1>
+                Number Guess Game
+            </h1>
+
+
+        </div>
+
+
+        <!-- Other Games Button -->
+
+        <button
+            class="other-games-button"
+        >
+
+            Other Games
+
+        </button>
+
+
+    </header>
+
+
+    <!-- =========================
+         MAIN GAME
+    ========================== -->
+
+    <main class="game-container">
+
+
+        <!-- Main Heading -->
+
+        <h2 class="title">
+
+
+            <span class="choose-word">
+                CHOOSE
+            </span>
+
+
+            your difficulty level!
+
+
+        </h2>
+
+
+        <!-- =========================
+             DIFFICULTY SELECTOR
+        ========================== -->
+
+        <div class="difficulty-selector">
+
+
+            <!-- Easy -->
+
+            <button
+                class="difficulty-button active"
+                onclick="startGame('easy', this)"
+            >
+
+                Easy
+
+            </button>
+
+
+            <!-- Medium -->
+
+            <button
+                class="difficulty-button"
+                onclick="startGame('medium', this)"
+            >
+
+                Medium
+
+            </button>
+
+
+            <!-- Hard -->
+
+            <button
+                class="difficulty-button"
+                onclick="startGame('hard', this)"
+            >
+
+                Hard
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =========================
+             CURRENT LEVEL
+        ========================== -->
+
+        <h3 id="level">
+
+            Easy Mode
+
+        </h3>
+
+
+        <!-- Game Instructions -->
+
+        <p id="instructions">
+
+            Guess a number between 1 and 10.
+
+        </p>
+
+
+        <!-- =========================
+             GUESS SECTION
+        ========================== -->
+
+        <div class="guess-section">
+
+
+            <!-- Number Input -->
+
+            <input
+                type="number"
+                id="guessInput"
+                placeholder="Enter your guess"
+            >
+
+
+            <!-- Submit Button -->
+
+            <button
+                class="submit-button"
+                onclick="checkGuess()"
+            >
+
+                Submit
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =========================
+             GAME MESSAGE
+        ========================== -->
+
+        <p id="message">
+
+            Game started! Make your guess.
+
+        </p>
+
+
+        <!-- =========================
+             REMAINING ATTEMPTS
+        ========================== -->
+
+        <p id="attempts">
+
+            Remaining attempts: Unlimited
+
+        </p>
+
+
+        <!-- =========================
+             NEW GAME
+        ========================== -->
+
+        <button
+            class="new-game-button"
+            onclick="newGame()"
+        >
+
+            New game
+
+        </button>
+
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT FILE
+    ========================== -->
+
+    <script
+        src="script.js"
+    ></script>
+
+
+</body>
+
+</html>
