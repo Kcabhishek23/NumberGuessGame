@@ -35,6 +35,12 @@ body {
 
     font-weight: 400;
 
+    transition:
+
+        background-color 0.6s ease,
+
+        color 0.6s ease;
+
 }
 
 
@@ -114,8 +120,9 @@ body {
 
     font-weight: 700;
 
-}
+    transition: color 0.6s ease;
 
+}
 
 /* Day Night Toogle Button */
 
@@ -224,7 +231,6 @@ body.day-mode .theme-toggle {
 }
 
 
-
 /* =========================================
    MAIN GAME CONTAINER
 ========================================= */
@@ -239,6 +245,12 @@ body.day-mode .theme-toggle {
     margin: 52px auto 0;
 
     text-align: center;
+
+    transition:
+
+        transform 0.6s ease,
+
+        opacity 0.6s ease;
 
 }
 
@@ -259,6 +271,8 @@ body.day-mode .theme-toggle {
     font-weight: 700;
 
     margin-bottom: 38px;
+
+    transition: color 0.6s ease;
 
 }
 
@@ -297,6 +311,10 @@ body.day-mode .theme-toggle {
 
     gap: 18px;
 
+    transition:
+
+        background-color 0.6s ease;
+
 }
 
 
@@ -331,7 +349,9 @@ body.day-mode .theme-toggle {
 
         background 0.25s ease,
 
-        transform 0.25s ease;
+        transform 0.25s ease,
+
+        color 0.6s ease;
 
 }
 
@@ -387,6 +407,8 @@ body.day-mode .theme-toggle {
 
     margin-bottom: 18px;
 
+    transition: color 0.6s ease;
+
 }
 
 
@@ -406,6 +428,8 @@ body.day-mode .theme-toggle {
     font-weight: 400;
 
     margin-bottom: 32px;
+
+    transition: color 0.6s ease;
 
 }
 
@@ -452,6 +476,12 @@ body.day-mode .theme-toggle {
 
     font-weight: 400;
 
+    transition:
+
+        background-color 0.6s ease,
+
+        color 0.6s ease;
+
 }
 
 
@@ -460,6 +490,8 @@ body.day-mode .theme-toggle {
     color: #FFFFFF;
 
     opacity: 1;
+
+    transition: color 0.6s ease;
 
 }
 
@@ -533,6 +565,8 @@ body.day-mode .theme-toggle {
 
     font-weight: 400;
 
+    transition: color 0.6s ease;
+
 }
 
 
@@ -552,6 +586,8 @@ body.day-mode .theme-toggle {
     line-height: 1.3;
 
     font-weight: 400;
+
+    transition: color 0.6s ease;
 
 }
 
@@ -609,6 +645,121 @@ body.day-mode .theme-toggle {
         0 8px 20px
 
         rgba(255, 23, 72, 0.35);
+
+}
+
+
+/* =========================================
+   DAY MODE
+========================================= */
+
+
+body.day-mode {
+
+    background-color: #E7E8EB;
+
+    color: #202428;
+
+}
+
+
+/* Text */
+
+body.day-mode .logo-section h1,
+
+body.day-mode .title,
+
+body.day-mode #level,
+
+body.day-mode #instructions,
+
+body.day-mode #message,
+
+body.day-mode #attempts {
+
+    color: #202428;
+
+}
+
+
+/* Difficulty background */
+
+body.day-mode .difficulty-selector {
+
+    background-color: #D5D8DE;
+
+}
+
+
+/* Difficulty buttons */
+
+body.day-mode .difficulty-button {
+
+    color: #202428;
+
+}
+
+
+/* Keep active button text white */
+
+body.day-mode .difficulty-button.active {
+
+    color: #FFFFFF;
+
+}
+
+
+/* Input */
+
+body.day-mode #guessInput {
+
+    background-color: #D5D8DE;
+
+    color: #202428;
+
+}
+
+
+body.day-mode #guessInput::placeholder {
+
+    color: #202428;
+
+}
+
+
+/* =========================================
+   THEME CHANGE ANIMATION
+========================================= */
+
+
+body.theme-changing .game-container {
+
+    animation:
+
+        themeSwitch 0.6s ease;
+
+}
+
+
+@keyframes themeSwitch {
+
+
+    0% {
+
+        opacity: 0.5;
+
+        transform: translateY(8px);
+
+    }
+
+
+    100% {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
 
 }
 
@@ -707,11 +858,24 @@ body.day-mode .theme-toggle {
     }
 
 
-    .other-games-button {
+    .theme-toggle {
 
-        padding: 12px 16px;
+        width: 155px;
+
+        height: 50px;
 
         font-size: 14px;
+
+    }
+
+
+    .theme-icon {
+
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 20px;
 
     }
 
@@ -798,6 +962,5 @@ body.day-mode .theme-toggle {
         height: 65px;
 
     }
-
 
 }
