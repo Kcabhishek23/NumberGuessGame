@@ -1,308 +1,135 @@
-// =================================
-// GAME VARIABLES
-// =================================
+/* =========================================
+   THEME TOGGLE
+========================================= */
 
-let secretNumber;
-let maxNumber;
-let maxAttempts;
-let attempts = 0;
-let gameStarted = false;
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const themeText = document.getElementById('themeText');
+const body = document.body;
 
-
-// =================================
-// START GAME
-// =================================
-
-function startGame(level, button) {
-
-    gameStarted = true;
-
-
-    // Remove active style from all buttons
-
-    document
-        .querySelectorAll(".difficulty-button")
-        .forEach(function (difficultyButton) {
-
-            difficultyButton.classList.remove("active");
-
-        });
-
-
-    // Add active style to selected button
-
-    if (button) {
-
-        button.classList.add("active");
-
+function applyTheme(isDay) {
+    if (isDay) {
+        body.classList.add('day-mode');
+        themeToggle.classList.add('reversed');
+        themeIcon.textContent = '☾';
+        themeText.textContent = 'NIGHT MODE';
+    } else {
+        body.classList.remove('day-mode');
+        themeToggle.classList.remove('reversed');
+        themeIcon.textContent = '☀';
+        themeText.textContent = 'DAY MODE';
     }
-
-
-    // EASY MODE
-
-    if (level === "easy") {
-
-        maxNumber = 10;
-
-        maxAttempts = Infinity;
-
-        document.getElementById("level").textContent =
-            "Easy Mode";
-
-        document.getElementById("instructions").textContent =
-            "Guess a number between 1 and 10.";
-
-    }
-
-
-    // MEDIUM MODE
-
-    else if (level === "medium") {
-
-        maxNumber = 50;
-
-        maxAttempts = 5;
-
-        document.getElementById("level").textContent =
-            "Medium Mode";
-
-        document.getElementById("instructions").textContent =
-            "Guess a number between 1 and 50.";
-
-    }
-
-
-    // HARD MODE
-
-    else if (level === "hard") {
-
-        maxNumber = 100;
-
-        maxAttempts = 10;
-
-        document.getElementById("level").textContent =
-            "Hard Mode";
-
-        document.getElementById("instructions").textContent =
-            "Guess a number between 1 and 100.";
-
-    }
-
-
-    // Generate secret number
-
-    secretNumber =
-        Math.floor(Math.random() * maxNumber) + 1;
-
-
-    // Reset attempts
-
-    attempts = 0;
-
-
-    // Show message
-
-    document.getElementById("message").textContent =
-        "Game started! Make your guess.";
-
-
-    // Show attempts
-
-    if (maxAttempts === Infinity) {
-
-        document.getElementById("attempts").textContent =
-            "Remaining attempts: Unlimited";
-
-    }
-
-    else {
-
-        document.getElementById("attempts").textContent =
-            `Remaining attempts: ${maxAttempts}`;
-
-    }
-
-
-    // Clear input
-
-    document.getElementById("guessInput").value = "";
-
 }
 
+themeToggle.addEventListener('click', () => {
+    const switchingToDay = !body.classList.contains('day-mode');
 
-// =================================
-// CHECK GUESS
-// =================================
+    // restart the button "pulse" animation
+    themeToggle.classList.remove('pulse');
+    void themeToggle.offsetWidth; // force reflow so the animation can replay
+    themeToggle.classList.add('pulse');
+
+    // restart the icon "flip" animation
+    themeIcon.classList.remove('flip');
+    void themeIcon.offsetWidth;
+    themeIcon.classList.add('flip');
+
+    // restart the page-content fade/slide animation
+    body.classList.remove('theme-changing');
+    void body.offsetWidth;
+    body.classList.add('theme-changing');
+
+    applyTheme(switchingToDay);
+});
+
+// starts in night mode by default, matching the initial dark background
+applyTheme(false);
+
+/* =========================================
+   NUMBER GUESS GAME
+========================================= */
+
+const DIFFICULTIES = {
+    easy: { min: 1, max: 10, attempts: Infinity },
+    medium: { min: 1, max: 50, attempts: 10 },
+    hard: { min: 1, max: 100, attempts: 7 }
+};
+
+let currentLevel = 'easy';
+let targetNumber = null;
+let attemptsLeft = Infinity;
+let gameOver = false;
+
+const levelEl = document.getElementById('level');
+const instructionsEl = document.getElementById('instructions');
+const guessInput = document.getElementById('guessInput');
+const messageEl = document.getElementById('message');
+const attemptsEl = document.getElementById('attempts');
+
+function startGame(level, btn) {
+    currentLevel = level;
+    gameOver = false;
+
+    document.querySelectorAll('.difficulty-button').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const { min, max, attempts } = DIFFICULTIES[level];
+    targetNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    attemptsLeft = attempts;
+
+    levelEl.textContent = `${level.charAt(0).toUpperCase() + level.slice(1)} Mode`;
+    instructionsEl.textContent = `Guess a number between ${min} and ${max}.`;
+    messageEl.textContent = 'Game started! Make your guess.';
+    attemptsEl.textContent = `Remaining attempts: ${attempts === Infinity ? 'Unlimited' : attempts}`;
+    guessInput.value = '';
+    guessInput.focus();
+}
 
 function checkGuess() {
-
-
-    // Get input
-
-    const input =
-        document.getElementById("guessInput");
-
-
-    const guess =
-        Number(input.value);
-
-
-    // IMPORTANT:
-    // If the game has not started, automatically start Easy Mode
-
-    if (!gameStarted) {
-
-        startGame(
-            "easy",
-            document.querySelector(".difficulty-button")
-        );
-
-    }
-
-
-    // Check empty input
-
-    // if (input.value === "") {
-
-    //     document.getElementById("message").textContent =
-    //         "Please enter a number.";
-
-    //     return;
-
-    // }
-
-
-    // Check range
-
-    if (
-        guess < 1 ||
-        guess > maxNumber
-    ) {
-
-        document.getElementById("message").textContent =
-            `Please enter a number between 1 and ${maxNumber}.`;
-
+    if (gameOver) {
+        messageEl.textContent = 'Round over — start a new game to keep playing.';
         return;
-
     }
 
+    const raw = guessInput.value;
+    const guess = Number(raw);
 
-    // Increase attempts
-
-    attempts++;
-
-
-    // Check guess
-
-    if (guess < secretNumber) {
-
-        document.getElementById("message").textContent =
-            "Too low! Try again.";
-
+    if (raw === '' || Number.isNaN(guess)) {
+        messageEl.textContent = 'Please enter a valid number.';
+        return;
     }
 
-    else if (guess > secretNumber) {
-
-        document.getElementById("message").textContent =
-            "Too high! Try again.";
-
+    if (guess === targetNumber) {
+        messageEl.textContent = `🎉 Correct! The number was ${targetNumber}.`;
+        attemptsEl.textContent = 'Remaining attempts: Game over';
+        gameOver = true;
+        return;
     }
 
-    else {
-
-        document.getElementById("message").textContent =
-            `🎉 Correct! You guessed it in ${attempts} attempts!`;
-
-        gameStarted = false;
-
+    if (attemptsLeft !== Infinity) {
+        attemptsLeft--;
     }
 
-
-    // Update attempts
-
-    if (maxAttempts === Infinity) {
-
-        document.getElementById("attempts").textContent =
-            "Remaining attempts: Unlimited";
-
+    if (attemptsLeft === 0) {
+        messageEl.textContent = `Out of attempts! The number was ${targetNumber}.`;
+        attemptsEl.textContent = 'Remaining attempts: 0';
+        gameOver = true;
+        return;
     }
 
-    else {
-
-        const remainingAttempts =
-            maxAttempts - attempts;
-
-
-        document.getElementById("attempts").textContent =
-            `Remaining attempts: ${remainingAttempts}`;
-
-
-        // Game over
-
-        if (
-            guess !== secretNumber &&
-            remainingAttempts === 0
-        ) {
-
-            document.getElementById("message").textContent =
-                `😢 Game Over! The number was ${secretNumber}.`;
-
-            gameStarted = false;
-
-        }
-
-    }
-
-
-    // Clear input
-
-    input.value = "";
-
+    messageEl.textContent = guess < targetNumber ? 'Too low, try again!' : 'Too high, try again!';
+    attemptsEl.textContent = `Remaining attempts: ${attemptsLeft === Infinity ? 'Unlimited' : attemptsLeft}`;
+    guessInput.value = '';
+    guessInput.focus();
 }
-
-
-// =================================
-// NEW GAME
-// =================================
 
 function newGame() {
-
-    secretNumber = undefined;
-
-    maxNumber = undefined;
-
-    maxAttempts = undefined;
-
-    attempts = 0;
-
-    gameStarted = false;
-
-
-    document.getElementById("level").textContent =
-        "Choose a difficulty";
-
-
-    document.getElementById("instructions").textContent =
-        "Choose Easy, Medium, or Hard to start.";
-
-
-    document.getElementById("message").textContent =
-        "Choose a difficulty level to start the game.";
-
-
-    document.getElementById("attempts").textContent =
-        "Remaining attempts: 0";
-
-
-    document.getElementById("guessInput").value = "";
-
-
-    document
-        .querySelectorAll(".difficulty-button")
-        .forEach(function (button) {
-
-            button.classList.remove("active");
-
-        });
-
+    startGame(currentLevel, document.querySelector('.difficulty-button.active'));
 }
+
+guessInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkGuess();
+});
+
+// kick off the first round on page load
+startGame('easy', document.querySelector('.difficulty-button.active'));
