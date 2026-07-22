@@ -117,18 +117,27 @@ body {
 }
 
 
-/* =========================================
-   OTHER GAMES BUTTON
-========================================= */
+/* Day Night Toogle Button */
 
+.theme-toggle {
 
-.other-games-button {
+    width: 225px;
 
-    padding: 18px 25px;
+    height: 64px;
+
+    padding: 6px;
 
     border: none;
 
-    border-radius: 15px;
+    border-radius: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    cursor: pointer;
 
     background: linear-gradient(
 
@@ -146,20 +155,18 @@ body {
 
     font-size: 20px;
 
-    font-weight: 700;
-
-    cursor: pointer;
+    font-weight: 600;
 
     transition:
 
-        transform 0.2s ease,
+        transform 0.3s ease,
 
-        box-shadow 0.2s ease;
+        box-shadow 0.3s ease;
 
 }
 
 
-.other-games-button:hover {
+.theme-toggle:hover {
 
     transform: translateY(-3px);
 
@@ -170,6 +177,52 @@ body {
         rgba(255, 23, 72, 0.35);
 
 }
+
+
+.theme-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background-color: #FFFFFF;
+
+    color: #202428;
+
+    font-size: 28px;
+
+    transition:
+
+        transform 0.5s ease;
+
+}
+
+
+.theme-toggle:hover .theme-icon {
+
+    transform: rotate(20deg);
+
+}
+
+
+/* DAY MODE */
+
+body.day-mode .theme-toggle {
+
+    flex-direction: row-reverse;
+
+}
+
 
 
 /* =========================================
